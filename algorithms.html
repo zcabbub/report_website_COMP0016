@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>3D Pyramid Rendering - Algorithms</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Report</strong></a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Algorithms</h1>
+									</header>
+
+									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+
+									<p>This section describes the algorithms we experimented with in the OpenCV library while trying to implement background subtraction. Since our project does not have much code, there are no other algorithms that we used.</p>
+
+									<hr class="major" />
+
+									<h2>Experiments</h2>
+									<p>
+									Due to the fact that the video streams require the presence of a black background, we experimented with the existing background segmentation algorithms within OpenCV, such as KNN[1] and MOG2[2].
+									</p>
+									<p>
+									The MOG2 class implements a Gaussian mixture-based background/foreground segmentation algorithm. However, the algorithm failed as it could not detect the face correctly and only kept the colours following the contours of the face rather than keeping the entire face in. 
+									</p>
+
+									<span class="image main"><img src="images/algorithm1.png" alt="" /></span>
+									<span class="image main"><img src="images/algo_ss_1.png" alt="" /></span>
+
+									<p>Then, we decided to try to fully recognize the face of the person and only bleep out the backgrounds using HSV (but changing the learning rate parameter in the apply() function). The result displayed a more promising result out of all the attempts as it included a greater proportion of the person being filmed. Unfortunately, the outcome was still inadequate. Therefore, we conducted further research to achieve the desired effect. </p>
+									<span class="image main"><img src="images/hsv.png" alt="" /></span>
+
+									<hr class="major" />
+
+									<h2>Discussions</h2>
+									<p>Our developing process had slowed down since none of the algorithms we experimented with worked to the extent we desired. After conducting further research, we found out that the algorithms we experimented with were all designed for subjects in the frame that are further from the camera. The algorithm detects the dynamic and static pixels frame by frame. If it does work successfully, it could get the whole person out of the background. However, our subject (e.g., a person in a video conferencing setting) takes up about 60% of the frame, which leads to certain pixels, such as those of the person’s clothing or hair that are not dynamic enough, not being detected correctly. Hence, we needed to look for an alternative method to achieve isolating the subject from the background. </p>
+
+									<hr class="major" />
+
+									<h2>Result</h2>
+									<p>In the following meeting with our supervisor Dr. Dean Mohamedally, we addressed the difficulties we faced associated with the background subtraction algorithms. We informed him that if a static background was assumed (e.g. a room where the objects in the frame, except for the human subject, do not change in position throughout the entire streaming duration), the development process would be sped up significantly. As a result, we got the approval to assume the presence of a green screen in the frame, so the background subtraction algorithms do not have to be utilized and instead, the green pixel values can simply be detected and transformed to black.</p>
+
+									<hr class="major" />
+
+									<h2>Result</h2>
+									<p>
+									<a href="https://docs.opencv.org/3.4/db/d88/classcv_1_1BackgroundSubtractorKNN.html">[1]cv::BackgroundSubtractorKNN Class Reference</a>
+									</p>
+									<p>
+									<a href="https://docs.opencv.org/3.4/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html">[2]cv::BackgroundSubtractorMOG2 Class Reference </a>
+									</p>
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="requirements.html">Requirements</a></li>
+										<li><a href="research.html">Research</a></li>
+										<li><a href="algorithms.html">Algorithms</a></li>
+										<li><a href="design.html">Design</a></li>
+										<li><a href="implementation.html">Implementation</a></li>
+										<li><a href="testing.html">Testing</a></li>
+										<li><a href="evaluation.html">Evaluation</a></li>
+										<li><a href="appendices.html">Appendices</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">andrei.bubutanu.19@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">yong.cho.17@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">coco.liu.19@ucl.ac.uk</a></li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; University College London, IBM. All rights reserved. Design: Team 3</p>
+								</footer>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<title>3D Pyramid Rendering - Appendices</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Header -->
+				<header id="header">
+					<a href="index.html" class="logo"><strong>Report</strong></a>
+				</header>
+
+				<!-- Content -->
+				<section>
+					<header class="main">
+						<h1>Appendices</h1>
+					</header>
+
+					<h3>User manual</h3>
+
+
+					<div class="stackedit">
+						<div class="stackedit__html">
+							<h1 id="d-hologram-pyramid-rendering">3D Hologram Pyramid Rendering</h1>
+							<h4 id="by-comp0016_2020_21_team3">by COMP0016_2020_21_Team3</h4>
+							<h3 id="section"></h3>
+							<h3 id="opening-this-project">Opening this project:</h3>
+							<ul>
+								<li>
+									<p>if you open this project in PyCharm, you will have no problem with dependencies
+										and the program is ready to run.</p>
+								</li>
+								<li>
+									<p>if you choose to run this program by terminal, follow the steps:</p>
+									<pre>
+										<code>  
+# create virtual environment
+virtualenv .venv 
+
+# enter virtual environment
+source .venv/bin/activate
+
+# install required packages
+pip install -r requirements.txt
+										</code>
+									</pre>
+								</li>
+							</ul>
+							<h3 id="usage">Usage:</h3>
+							<h4 id="this-program-has-2-input-options">This program has 2 input options:</h4>
+							<p><strong>warning:</strong> there should always be only 1 option uncommented at any time
+							</p>
+							<ol>
+								<li>
+									<p>Use 4 cameras from different perspectives:</p>
+									<ul>
+										<li>uncomment this section and comment the second one</li>
+										<li><em>cv2.VideoCapture(0)</em> method takes an integer number as an argument.
+											That number represents the camera index that can be found as follows:
+											<ul>
+												<li>camera_id + domain_offset (CAP_*) id of the video capturing device
+													to open. To open default camera using default backend just pass
+													0.(<a
+														href="https://docs.opencv.org/3.4/d8/dfe/classcv_1_1VideoCapture.html#a5d5f5dacb77bbebdcbfb341e3d4355c1">https://docs.opencv.org/3.4/d8/dfe/classcv_1_1VideoCapture.html#a5d5f5dacb77bbebdcbfb341e3d4355c1</a>)
+												</li>
+											</ul>
+										</li>
+										<li>input the camera index accordingly to the variable name: e.g., for
+											<em>cam_front</em> use the camera that captures from front</li>
+										<li>uncomment the part that changes the green screen to black pixels</li>
+									</ul>
+								</li>
+								<li>
+									<p>Use 4 videos:</p>
+									<ul>
+										<li>make sure that the videos used are synchronized and have the same length
+										</li>
+										<li>uncomment this section and comment the first one</li>
+										<li><em>cv2.VideoCapture(‘cube_perspectives/front/cube-front.avi’)</em> method
+											also takes a path as an argument. Make sure to match the perspective with
+											the variable name.</li>
+									</ul>
+								</li>
+							</ol>
+							<h4 id="following-this-program-has-further-3-output-options">Following, this program has
+								further 3 output options:</h4>
+							<p><em>Note: in this case it doesn’t matter how many options are uncommented</em></p>
+							<ol>
+								<li>
+									<p>Save the video to a .avi file. To use it, uncomment the lines containing the
+										<strong>result</strong> variable - e.g.:</p>
+									<pre><code> 
+result.release() # found in cleaning_up() method
+									</code></pre>
+								</li>
+								<li>
+									<p>Display the video in a different window by uncommenting this line:</p>
+									<pre><code>
+cv2.imshow('pyramid', output)
+									</code></pre>
+								</li>
+								<li>
+									<p>Send the video to a virtual camera by uncommenting:</p>
+									<pre><code> 
+cam.send(output)
+cam.sleep_until_next_frame()
+									</code></pre>
+									<ul>
+										<li>this will send the video stream to a client such as OBS(this is the one we
+											used, but any virtual camera should work)</li>
+										<li>Use OBS to create a Video source and select <em>OBS virtual camera</em>.
+										</li>
+										<li>run the program and the video should appear in OBS instantly.</li>
+									</ul>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<hr class="major" />
+
+					<h2>Legal issues and processes </h2>
+					 <p>
+					1. Libraries used:  
+					</p>
+					<ul>
+						<li>OpenCV, https://opencv.org/, licence type: MIT</li>
+						<li>Numpy, https://numpy.org/, licence type:BSD</li>
+						<li>PyVirtualCam, https://pypi.org/project/pyvirtualcam/0.2.0/, licence type:PyPI</li>
+					</ul>
+					<p>
+					2. Technologies used:
+					</p>
+					<ul>
+						<li>PyCharm, https://www.jetbrains.com/pycharm/, licence type:Apache 2</li>
+						<li>OBS Studio, https://obsproject.com/, licence type:GPLv2</li>
+						<li>MS Teams, https://www.microsoft.com/en-us/microsoft-teams/group-chat-software</li>
+					</ul>
+
+					<hr class="major" />
+
+					<a href="https://uclcomp0016team3.wordpress.com/blog/"><h2>Development Blog</h2></a>
+				
+					<a href="https://github.com/UCLComputerScience/COMP0016_2020_21_Team3"><h2>Github Repo</h2></a>
+
+				</section>
+
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div class="inner">
+
+				<!-- Search -->
+				<section id="search" class="alt">
+					<form method="post" action="#">
+						<input type="text" name="query" id="query" placeholder="Search" />
+					</form>
+				</section>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+						<li><a href="index.html">Homepage</a></li>
+						<li><a href="requirements.html">Requirements</a></li>
+						<li><a href="research.html">Research</a></li>
+						<li><a href="algorithms.html">Algorithms</a></li>
+						<li><a href="design.html">Design</a></li>
+						<li><a href="implementation.html">Implementation</a></li>
+						<li><a href="testing.html">Testing</a></li>
+						<li><a href="evaluation.html">Evaluation</a></li>
+						<li><a href="appendices.html">Appendices</a></li>
+					</ul>
+				</nav>
+
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>Get in touch</h2>
+					</header>
+					<ul class="contact">
+						<li class="icon solid fa-envelope"><a href="#">andrei.bubutanu.19@ucl.ac.uk</a></li>
+						<li class="icon solid fa-envelope"><a href="#">yong.cho.17@ucl.ac.uk</a></li>
+						<li class="icon solid fa-envelope"><a href="#">coco.liu.19@ucl.ac.uk</a></li>
+					</ul>
+				</section>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<p class="copyright">&copy; University College London, IBM. All rights reserved. Design: Team 3</p>
+				</footer>
+
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

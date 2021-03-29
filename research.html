@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>3D Pyramid Rendering - Research</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Report</strong></a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Research</h1>
+									</header>
+
+									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+
+									<hr class="major" />
+
+									<h2>Related Projects Review</h2>
+									<p>We could find various companies that specialized in holographic services and projects, however it was quite challenging to find ones that focused on manipulating custom video inputs to be renderable on a hologram-displaying hardware.</p>
+									<h5>Giwox Technology</h5>
+									<p>Giwox Technology produces 3D display devices that use the persistence of vision (POV) technology, with the central mechanism being rotating blades of high-density LED’s that create 3D visuals. Unlike most companies that we had come across previously that only produced 3D display hardware, Giwox also provided software in the forms of mobile applications and clouds that allow users to input custom images and videos to be configured and displayed. The devices support various media file formats such as avi, mp4 and gif. </p>
+									<p>The main takeaway from the Giwox products was the simplicity of its system architecture. If a user wants to display a holographic image, he/she only needs to follow a few simple steps: download the corresponding software for a device, configure and connect to it through a WiFi connection, then upload desired media through the software to be processed and displayed onto the device. One limitation of the system was that the media input is required to have a black background for the device to display it holographically. Additionally, the software exclusively renders and redirects the media for the Giwox fans, so the users cannot utilize the functions through third-party plugins like OBS Studio and video conferencing applications. </p>
+									<p>Our solution will attempt to take a greater variety of user input to be projectable onto a display device (pyramid) by configuring the video streams through the use of transformative functions such as background segmentation. Moreover, we aim to redirect the rendered output as a virtual camera source so that the users can send and receive the visuals on other platforms such as streaming sites and video conferencing applications. </p>
+
+									<hr class="major" />
+
+									<h2>Technology Review </h2>
+									<p>Alternative technologies were researched and evaluated to be used as the broadcasting platform and video processing library for the project. </p>
+									<p>Competing solutions for hosting platforms: </p>
+									<ol>
+									<li>BodyPix:
+										<p>
+										BodyPix is a standalone TensorFlow (machine learning library) model that is used to recognize and segment pixels that are and are not part of a human subject as well as categorize them into different body parts. 
+										</p>
+										<p>
+										The two main functions of this library that would be utilised for our project are pre-trained model loading and person segmentation. BodyPix provides a few default models that correspond to different multiplier values, which is taken as a parameter of the model-loading function. The multiplier can take values of 1.0, 0.75, 0.50 or 0.25 with 0.75 being the default option. It is the float multiplier for the depth of convolution operations of the machine learning model, where the larger the value, the more accurate the model at the cost of operation speed [3]. 
+										</p>
+										<p>
+											The person segmentation function returns an object containing the width and height of the image, as well as a binary array with the value 1 if the pixel is a part of the person and 0 otherwise for every pixel of the frame. This array can then be manipulated to apply transformations to non-person pixels, which in our case would be to turn them black. 
+										</p>
+										<p>
+											It is stated that the ideal use case is a single person centered in an image or a video, which is very similar to our expected use case. BodyPix was originally released for use in browsers with TensorFlow.js, however there is also a Python implementation available.
+										</p>
+									</li>
+
+										<li>OpenCV:
+										<p>
+											OpenCV is an open source library that contains numerous functionalities regarding computer vision, machine learning and image processing. There are various functions in OpenCV that are useful for our project; from background segmentation algorithms such as MOG, KNN and GMG to transformation functions that allow webcam inputs to be merged and rotated. 
+										</p>
+										<p>
+											The algorithms MOG and MOG2 are Gaussian mixture-based background/foreground segmentation algorithms. They employ a method to model each background pixel through a K Gaussian distributions mixture. The weights of the mixture are indicative of the time durations that the colours stay for in the scene [1]. The background colours are likely to be the ones that remain statically longer. 
+										</p>
+										<p>
+											The KNN algorithm, short for K-nearest neighbors, is a classification and regression technique. It is used in the BackgroundSubtractorKNN class in OpenCV for background/foreground segmentation, with its key characteristic being the high efficiency given a low number of foreground pixels [2].
+										</p>
+										<p>
+											We decided to use these algorithms as they had documentation with great detail and their use did not require us to delve too deep into the technical background knowledge. It was also noted that OpenCV functionalities are employed by other computer vision libraries, including the BodyPix model, due to its wide collection of image/video processing classes.  
+										</p>
+										</li>
+									</ol>
+
+									<hr class="major" />
+
+									<h2>Summary of our technical decisions</h2>
+									<p>We decided to use OBS Studio as our platform to host the transformed video stream and channel it as a virtual webcam source. One of the biggest reasons for choosing OBS over XSplit was it being an open-source software with a large community. Besides being completely free to use (whereas Xsplit requires payment for many additional functions), OBS has far greater support for third-party plugins, all available on their website, in comparison to XSplit’s proprietary interface. These characteristics of OBS allow our project to be much more versatile as we can easily work conjunctively with other video conferencing platforms through the use of various plugins and minimal legal concerns.</p>
+									<p>Regarding video/image processing, we decided to employ OpenCV for various reasons. While experimenting with both BodyPix and OpenCV to transform videos and webcam inputs, we discovered that quite a few functionalities of BodyPix rely on OpenCV functions for better performance. Hence, it seemed more reasonable to utilise the OpenCV library for the entire video processing part of the project for the simplicity of the script and readability of code. Moreover, BodyPix requires relatively higher-end hardware like GPU, especially if the user desires to apply the ResNet architecture for higher accuracy [4]. We thought this was problematic as the model would have to handle a lot of live webcam data in a video conferencing setting and we do not want our solution to have a high threshold of hardware specifications to function.  </p>
+
+									<h2>References</h2>
+									<p>
+									<a href="https://towardsdatascience.com/virtual-background-in-webcam-with-body-segmentation-technique-fc8106ca3038">Virtual Background in webcam with Body Segmentation technique</a>
+									</p>
+									<p>
+									<a href="https://docs.opencv.org/master/d1/dc5/tutorial_background_subtraction.html">[1] How to Use Background Subtraction Methods </a>
+									</p>
+									<p>
+									<a href="https://docs.opencv.org/3.4/db/d88/classcv_1_1BackgroundSubtractorKNN.html">[2] cv::BackgroundSubtractorKNN Class Reference</a>
+									</p>
+									<p>
+									<a href="https://www.npmjs.com/package/@tensorflow-models/body-pix/v/1.1.2">[3] BodyPix - Person Segmentation in the Browser</a>
+									</p>
+									<p>
+									<a href="https://blog.tensorflow.org/2019/11/updated-bodypix-2.html">[4] BodyPix: Real-time Person Segmentation in the Browser with TensorFlow.js</a>
+									</p>
+									<p>
+									<a href="https://www.giwox.com/en/default.aspx">[5] GIWOX</a>
+									</p>
+									
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="requirements.html">Requirements</a></li>
+										<li><a href="research.html">Research</a></li>
+										<li><a href="algorithms.html">Algorithms</a></li>
+										<li><a href="design.html">Design</a></li>
+										<li><a href="implementation.html">Implementation</a></li>
+										<li><a href="testing.html">Testing</a></li>
+										<li><a href="evaluation.html">Evaluation</a></li>
+										<li><a href="appendices.html">Appendices</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">andrei.bubutanu.19@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">yong.cho.17@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">coco.liu.19@ucl.ac.uk</a></li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; University College London, IBM. All rights reserved. Design: Team 3</p>
+								</footer>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

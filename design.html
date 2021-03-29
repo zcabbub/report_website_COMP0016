@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>3D Pyramid Rendering - Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Report</strong></a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Design</h1>
+									</header>
+
+									<span class="image main"><img src="images/UML.png" alt="" /></span>
+
+
+									<p>
+										Our system allows for two input options, live webcam input from 4 cameras placed 90 degrees apart from each other and pre-recorded video input filmed with the same configuration. We utilized Autodesk Maya to render 4 video perspectives of a virtual object to test the option of using 4 pre-recorded videos. 
+									</p>
+									<p>
+										The input video source will then be processed through a Python script, using the OpenCV library to apply the needed transformations.  
+									</p>
+									<p>
+										As a result, the video source could be successfully rendered, with the possibility to be output in three different ways. Firstly, it can be turned into a .avi video file on the local machine running the script. Second, it can be projected as a video on a new window. Finally, the rendered visuals can be encapsulated as a virtual webcam source to be recognized in OBS Studio where it can be redirected to video conferencing applications. Consequently, the rendered visuals can be projected onto a holographic pyramid, where it will form a singular 3-dimensional entity. 
+									</p>
+									<p>
+										By following this implementation, we were able to provide a versatile system for the users and meet the essential requirements we had set.  
+									</p>
+									<hr class="major" />
+									<h5>Part.1 Autodesk Maya</h5>
+									<p>
+										During the development process, our team faced logistical issues with the webcams. Since their delivery continued to be delayed, we used Autodesk Maya to conduct most of our testing.
+									</p>
+									<p>
+										The input source is constructed using Maya as followed:
+									</p>
+										<ol>
+											<li>Setting up a scene with a 3D object (cube in our case) in a specific world position and placing four cameras around it. The cameras are located equidistantly and separated by 90 degrees from each other to capture front, back, and the two sides of the object.</li>
+											<li>Adding an animated rotation to the cube to make it dynamic for its 3D appearance. The rotation was animated in 400 frames and rendered from every camera, resulting in 400 png files respectively (1 image per frame). </li>
+											<li>In order to convert the images into a video, we used an open-source software called VirtualDub, which allowed us to convert the images into 4 videos of .avi container format.</li>
+										</ol>
+									<p>
+										From here, the videos were loaded to the OpenCV library to be merged and transformed using functions such as cv2.VideoCapture(). The videos will be read a frame at a time, and processed using the pyvirtualcam library in order to be recognized as a virtual webcam source. This allows for the visuals to be compatible with OBS Studio.
+									</p>
+									<hr class="major" />
+									<h5>Part.2 OpenCV Library</h5>
+									<p>
+										The OpenCV library in Python helped us to implement geometric transformations and background subtraction to compose the single, synchronized video stream that is projectable onto a pyramid.
+									</p>
+									<p>
+										camera_merger.py class merges different video angles into a single window
+									</p>
+									<p>
+										camera_flipper.py class is able to reflect a video across the x and y-axis to generate the perspectives required.
+									</p>
+									<p>
+										camera_rotation.py class rotates the corresponding video in its instructed direction. The cv2.rotate() command is what transforms the image and the ‘rotateCode’ argument has three options: ROTATE_90_CLOCKWISE, ROTATE_180_CLOCKWISE and ROTATE_90_COUNTERCLOCKWISE.
+									</p>
+									<p>
+										camera_background_substraction.py class assumes the presence of a green in the frame for generating a foreground mask. This algorithm consists of two main steps: background initialization and background update.
+									</p>
+									<p>
+										pyramid_renderer.py script brings the rendered video files together, rotates and places them in appropriate positions. The script initially creates a 3-dimensional array which holds values of the coordinates and RGB color values of all pixels. Then, each video is resized and rotated to fit the configuration and placed in different indices of the array.
+									</p>
+									<p>
+										The design follows the single responsibility principle, where we separated different functionalities according to the specific transformations it achieves. This allowed for a better cohesion in code and lower coupling between the individual classes. It also made it more efficient for testing as we could easily test the individual transformation elements with our mock object, giving us more confidence in implementation. 
+									</p>
+									<hr class="major" />
+									<h5>Part.3 OBS Studio</h5>
+									<p>
+										One of the output options was to redirect the video stream into OBS Studio. This enables the output video stream from our Python script to be further modified as far as the application’s functionalities allow.
+									</p>
+									<p>
+										When the script is running, the four video files get rendered and appear as a single camera source named “Video Capture Device” on OBS. This virtual webcam source can be subjected to all the functionalities that OBS Studio offers, including broadcasting to a streaming site or a video-conferencing application.
+									</p>
+										
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="requirements.html">Requirements</a></li>
+										<li><a href="research.html">Research</a></li>
+										<li><a href="algorithms.html">Algorithms</a></li>
+										<li><a href="design.html">Design</a></li>
+										<li><a href="implementation.html">Implementation</a></li>
+										<li><a href="testing.html">Testing</a></li>
+										<li><a href="evaluation.html">Evaluation</a></li>
+										<li><a href="appendices.html">Appendices</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">andrei.bubutanu.19@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">yong.cho.17@ucl.ac.uk</a></li>
+										<li class="icon solid fa-envelope"><a href="#">coco.liu.19@ucl.ac.uk</a></li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; University College London, IBM. All rights reserved. Design: Team 3</p>
+								</footer>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
